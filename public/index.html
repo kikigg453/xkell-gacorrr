@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XKelzz AM Generator</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body{
+    font-family:'Arial', sans-serif;
+    background:#f5f5f5;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:24px 16px 60px;
+    line-height:1.4;
+    color:#000;
+}
+
+.hidden{ display:none !important; }
+
+/* ---------- Entrance animations ---------- */
+@keyframes cardEntrance{
+    0%{opacity:0; transform:translateY(24px) scale(.98);}
+    100%{opacity:1; transform:translateY(0) scale(1);}
+}
+@keyframes bannerEntrance{
+    0%{opacity:0; transform:translateY(-12px);}
+    100%{opacity:1; transform:translateY(0);}
+}
+@keyframes fadeOutUp{
+    0%{opacity:1; transform:translateY(0);}
+    100%{opacity:0; transform:translateY(-10px);}
+}
+@keyframes popIn{
+    0%{opacity:0; transform:scale(.85);}
+    100%{opacity:1; transform:scale(1);}
+}
+@keyframes toastIn{
+    0%{opacity:0; transform:translateX(40px);}
+    100%{opacity:1; transform:translateX(0);}
+}
+@keyframes pulseDot{
+    0%,100%{opacity:1;}
+    50%{opacity:.35;}
+}
+
+.brand-banner{ text-align:center; margin-bottom:20px; animation:bannerEntrance .6s ease both; }
+.brand-banner h1{ font-size:2.1rem; font-weight:900; letter-spacing:2px; text-transform:uppercase; }
+.brand-banner p{ font-size:12px; font-weight:700; letter-spacing:2px; color:#666; text-transform:uppercase; margin-top:4px; }
+
+/* ---------- Card shell ---------- */
+.login-container{ width:100%; max-width:420px; }
+
+.login-card{
+    background:#fff;
+    border:3px solid #000;
+    padding:36px;
+    box-shadow:8px 8px 0 #000;
+    animation:cardEntrance .5s ease both;
+    transition:box-shadow .2s ease, transform .2s ease;
+}
+
+.login-header{ text-align:center; margin-bottom:28px; }
+.logo{ display:flex; justify-content:center; margin-bottom:14px; }
+.logo-square{
+    width:52px; height:52px; background:#000; color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    font-size:24px; border:3px solid #000;
+    animation:cardEntrance .5s ease both;
+}
+.login-header h2{ font-size:1.6rem; font-weight:900; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; }
+.login-header p{ font-size:13px; font-weight:600; text-transform:uppercase; color:#666; }
+.version-badge{
+    display:inline-block; margin-top:10px; background:#000; color:#fff;
+    font-size:10px; font-weight:800; letter-spacing:1px; text-transform:uppercase;
+    padding:4px 10px;
+}
+
+/* ---------- Form ---------- */
+.form-group{ margin-bottom:20px; position:relative; animation:cardEntrance .5s ease both; }
+.form-group:nth-of-type(1){ animation-delay:.05s; }
+.form-group:nth-of-type(2){ animation-delay:.1s; }
+.form-group:nth-of-type(3){ animation-delay:.15s; }
+
+.form-group label{
+    display:block; font-size:12px; font-weight:700; text-transform:uppercase;
+    letter-spacing:1px; margin-bottom:8px;
+}
+.form-group input, .form-group textarea{
+    width:100%; border:2px solid #000; background:#fff; padding:12px 14px;
+    font-size:15px; font-weight:500; font-family:inherit; outline:none;
+    transition:box-shadow .2s ease, transform .2s ease;
+}
+.form-group input::placeholder, .form-group textarea::placeholder{ color:#999; }
+.form-group input:focus, .form-group textarea:focus{
+    box-shadow:4px 4px 0 #000; transform:translate(-2px,-2px);
+}
+.form-hint{ font-size:11px; text-align:center; color:#666; margin:-8px 0 18px; font-weight:600; }
+.form-hint strong{ color:#000; }
+
+.btn{
+    width:100%; border:2px solid #000; padding:15px; cursor:pointer;
+    font-family:inherit; font-size:14px; font-weight:800; letter-spacing:1px;
+    text-transform:uppercase; margin-bottom:16px; transition:all .2s ease;
+}
+.btn-primary{ background:#000; color:#fff; }
+.btn-primary:hover{ background:#333; transform:translate(-2px,-2px); box-shadow:4px 4px 0 #000; }
+.btn-primary:active{ transform:translate(0,0); box-shadow:2px 2px 0 #000; }
+.btn-success{ background:#fff; color:#000; border-color:#16a34a; box-shadow:4px 4px 0 #16a34a; }
+.btn-success:hover{ background:#16a34a; color:#fff; }
+.btn-cyan{ background:#fff; color:#000; border-color:#000; }
+.btn-cyan:hover{ background:#000; color:#fff; }
+.btn-sm{ padding:10px; font-size:12px; margin-bottom:0; }
+.btn-outline{ background:#fff; color:#000; }
+.btn-outline:hover{ background:#000; color:#fff; }
+
+.form-link{ text-align:center; font-size:13px; font-weight:600; color:#666; }
+.form-link a{
+    color:#000; font-weight:800; text-transform:uppercase; letter-spacing:.5px;
+    cursor:pointer; border-bottom:2px solid transparent;
+}
+.form-link a:hover{ border-bottom-color:#000; }
+
+/* ---------- User profile ---------- */
+.user-profile{
+    display:flex; align-items:center; justify-content:space-between;
+    border:2px solid #000; padding:14px; margin-bottom:20px;
+}
+.profile-left{ display:flex; align-items:center; gap:12px; }
+.avatar{
+    width:44px; height:44px; background:#000; color:#fff; font-weight:900;
+    font-size:18px; display:flex; align-items:center; justify-content:center;
+    border:2px solid #000;
+}
+.username{ font-weight:800; text-transform:uppercase; font-size:14px; }
+.role-badge{
+    display:inline-block; margin-top:2px; background:#f5f5f5; border:1px solid #000;
+    font-size:10px; font-weight:800; letter-spacing:.5px; text-transform:uppercase;
+    padding:2px 6px;
+}
+.logout-btn{
+    border:2px solid #000; background:#fff; padding:8px 14px; font-weight:800;
+    font-size:11px; text-transform:uppercase; cursor:pointer; letter-spacing:.5px;
+    transition:all .2s ease;
+}
+.logout-btn:hover{ background:#000; color:#fff; }
+
+/* ---------- Limit cards ---------- */
+.limit-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:20px; }
+.limit-card{ border:2px solid #000; padding:14px; text-align:center; }
+.limit-label{ font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:.5px; margin-bottom:8px; }
+.limit-value{ font-size:1.4rem; font-weight:900; }
+.limit-value .total{ font-size:.9rem; color:#666; font-weight:700; }
+.limit-status{ margin-top:6px; font-size:11px; font-weight:800; text-transform:uppercase; color:#16a34a; }
+.limit-status.offline{ color:#dc3545; }
+
+/* ---------- Redeem (user) ---------- */
+.redeem-section{ border:2px solid #000; padding:14px; margin-bottom:20px; }
+.redeem-section h4{ font-size:12px; text-transform:uppercase; letter-spacing:.5px; margin-bottom:10px; }
+.redeem-row{ display:flex; gap:8px; }
+.redeem-row input{
+    flex:1; border:2px solid #000; padding:10px 12px; font-size:14px; font-weight:600;
+    font-family:inherit; outline:none; text-transform:uppercase;
+}
+.redeem-row input:focus{ box-shadow:4px 4px 0 #000; transform:translate(-2px,-2px); }
+.redeem-row button{ width:auto; margin-bottom:0; padding:0 16px; }
+
+/* ---------- Redeem create (owner) ---------- */
+.redeem-create-section{ margin-bottom:18px; }
+.redeem-create-section h4{ font-size:12px; text-transform:uppercase; letter-spacing:.5px; margin-bottom:10px; }
+.redeem-create-section .btn{ margin-top:4px; }
+.redeem-list{ margin-top:14px; }
+.redeem-code-row{
+    display:flex; align-items:center; justify-content:space-between; border:1px solid #000;
+    padding:8px 10px; margin-bottom:6px; font-size:12px;
+}
+.redeem-code-row .code-text{ font-weight:800; letter-spacing:.5px; }
+.redeem-code-row .code-amount{ color:#666; font-size:11px; }
+
+/* ---------- Buy limit ---------- */
+.buy-limit{ border:2px dashed #000; padding:18px; text-align:center; margin-bottom:20px; }
+.buy-icon{ font-size:26px; margin-bottom:8px; }
+.buy-limit h4{ font-size:13px; text-transform:uppercase; letter-spacing:.5px; margin-bottom:6px; }
+.buy-limit p{ font-size:12px; color:#666; margin-bottom:14px; }
+.buy-contacts{ display:flex; gap:10px; flex-wrap:wrap; justify-content:center; }
+.buy-contacts a, .contact-buttons a{
+    border:2px solid #000; padding:8px 14px; font-size:12px; font-weight:800;
+    text-decoration:none; color:#000; text-transform:uppercase; letter-spacing:.5px;
+    transition:all .2s ease;
+}
+.buy-contacts a:hover, .contact-buttons a:hover{ background:#000; color:#fff; }
+
+/* ---------- Server selector ---------- */
+.server-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:20px; }
+.server-card{
+    border:2px solid #000; padding:14px; text-align:center; cursor:pointer;
+    display:flex; flex-direction:column; align-items:center; gap:4px;
+    transition:all .2s ease; position:relative;
+}
+.server-card:hover{ transform:translate(-2px,-2px); box-shadow:4px 4px 0 #000; }
+.server-card.active{ background:#000; color:#fff; }
+.server-icon{ font-size:22px; }
+.server-name{ font-weight:800; font-size:13px; text-transform:uppercase; }
+.server-badge{
+    font-size:9px; font-weight:800; letter-spacing:.5px; text-transform:uppercase;
+    padding:2px 6px; border:1px solid currentColor; margin-top:2px;
+}
+.server-status{ display:flex; align-items:center; gap:6px; font-size:11px; font-weight:700; margin-top:4px; }
+.status-dot{ width:8px; height:8px; border-radius:50%; background:#16a34a; animation:pulseDot 1.6s ease infinite; }
+.status-dot.offline{ background:#dc3545; }
+
+/* ---------- Alert ---------- */
+.alert{
+    display:flex; gap:10px; border:2px solid #000; padding:14px; margin-bottom:20px;
+    animation:cardEntrance .3s ease both;
+}
+.alert.alert-success{ border-color:#16a34a; }
+.alert.alert-error{ border-color:#dc3545; }
+.alert-icon{ font-size:18px; }
+.alert-title{ font-weight:800; text-transform:uppercase; font-size:12px; letter-spacing:.5px; }
+.alert-message{ font-size:13px; margin-top:2px; }
+.alert-detail{ font-size:11px; color:#666; margin-top:4px; word-break:break-all; }
+
+/* ---------- Owner panel ---------- */
+.owner-panel{ border:3px solid #000; padding:18px; margin-top:8px; }
+.panel-header{ display:flex; align-items:center; gap:8px; margin-bottom:16px; }
+.panel-header h3{ font-size:14px; text-transform:uppercase; letter-spacing:.5px; flex:1; }
+.admin-badge{ background:#dc3545; color:#fff; font-size:10px; font-weight:800; padding:2px 8px; letter-spacing:.5px; }
+.btn-refresh{ border:2px solid #000; background:#fff; cursor:pointer; padding:4px 8px; font-size:13px; }
+.btn-refresh:hover{ background:#000; color:#fff; }
+
+.server-toggle-group{ display:flex; gap:10px; margin-bottom:16px; flex-wrap:wrap; }
+.toggle-btn{
+    flex:1; border:2px solid #000; background:#fff; padding:10px; font-weight:800;
+    font-size:11px; text-transform:uppercase; cursor:pointer; letter-spacing:.5px;
+    transition:all .2s ease;
+}
+.toggle-btn.active{ background:#000; color:#fff; }
+.toggle-btn.off{ background:#fff; color:#dc3545; border-color:#dc3545; }
+
+.broadcast-section{ margin-bottom:18px; }
+.broadcast-section textarea{ min-height:70px; resize:vertical; margin-bottom:10px; }
+
+.banned-section, .user-section{ margin-bottom:12px; }
+.banned-section h4, .user-section h4{
+    font-size:12px; text-transform:uppercase; letter-spacing:.5px; margin-bottom:8px;
+    border-bottom:2px solid #000; padding-bottom:6px;
+}
+.empty-text{ font-size:12px; color:#666; }
+.list-row{
+    display:flex; align-items:center; justify-content:space-between; border:1px solid #000;
+    padding:8px 10px; margin-bottom:6px; font-size:12px;
+}
+.list-row .row-actions button{
+    border:1px solid #000; background:#fff; font-size:10px; font-weight:800;
+    text-transform:uppercase; padding:4px 8px; cursor:pointer; margin-left:4px;
+}
+.list-row .row-actions button:hover{ background:#000; color:#fff; }
+.list-row .row-actions button.unban{ border-color:#16a34a; color:#16a34a; }
+.list-row .row-actions button.unban:hover{ background:#16a34a; color:#fff; }
+
+/* ---------- Toast ---------- */
+.toast-container{ position:fixed; top:16px; right:16px; display:flex; flex-direction:column; gap:10px; z-index:200; max-width:280px; }
+.toast{
+    background:#fff; border:2px solid #000; box-shadow:4px 4px 0 #000; padding:12px 14px;
+    font-size:12px; font-weight:700; animation:toastIn .25s ease both;
+}
+.toast.toast-success{ border-color:#16a34a; }
+.toast.toast-error{ border-color:#dc3545; }
+.toast.fade-out{ animation:fadeOutUp .2s ease both; }
+
+/* ---------- Banned overlay ---------- */
+.banned-overlay{
+    position:fixed; inset:0; background:rgba(0,0,0,.85); z-index:300;
+    display:flex; align-items:center; justify-content:center; padding:20px;
+}
+.banned-card{
+    background:#fff; border:3px solid #dc3545; padding:36px 28px; text-align:center;
+    max-width:360px; width:100%; box-shadow:8px 8px 0 #dc3545; animation:popIn .3s ease both;
+}
+.banned-icon{ font-size:40px; margin-bottom:10px; }
+.banned-card h2{ font-size:1.4rem; text-transform:uppercase; letter-spacing:1px; color:#dc3545; margin-bottom:10px; }
+.banned-reason{ font-size:13px; margin-bottom:10px; }
+.banned-time{ font-size:11px; color:#666; margin-bottom:16px; }
+.divider-line{ height:2px; background:#000; margin:16px 0; }
+.banned-contact p{ font-size:12px; font-weight:700; text-transform:uppercase; margin-bottom:10px; }
+.contact-buttons{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+
+/* ---------- Broadcast popup ---------- */
+.broadcast-overlay{ position:fixed; inset:0; background:rgba(0,0,0,.55); z-index:250; }
+.broadcast-popup{
+    position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); z-index:260;
+    background:#fff; border:3px solid #000; box-shadow:8px 8px 0 #000; width:90%;
+    max-width:360px; padding:0; animation:popIn .3s ease both;
+}
+.popup-header{
+    display:flex; align-items:center; justify-content:space-between; background:#000; color:#fff;
+    padding:12px 16px; font-weight:800; text-transform:uppercase; font-size:13px; letter-spacing:.5px;
+}
+.popup-close{ background:none; border:none; color:#fff; font-size:16px; cursor:pointer; }
+.popup-body{ padding:18px; font-size:13px; }
+.popup-time{ padding:0 18px 16px; font-size:11px; color:#666; }
+
+@media (max-width:480px){
+    .login-card{ padding:24px; box-shadow:6px 6px 0 #000; }
+    .limit-grid, .server-grid{ grid-template-columns:1fr; }
+    .server-toggle-group{ flex-direction:column; }
+}
+:focus-visible{ outline:2px solid currentColor; outline-offset:2px; }
+@media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{ animation-duration:.01ms !important; transition-duration:.01ms !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="brand-banner">
+    <h1>XKELZZ</h1>
+    <p>AM Generator</p>
+</div>
+
+<!-- Toasts -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- Banned overlay -->
+<div class="banned-overlay hidden" id="bannedOverlay">
+    <div class="banned-card">
+        <div class="banned-icon">!</div>
+        <h2>Access Denied</h2>
+        <p class="banned-reason" id="banReason">You have been banned from this platform</p>
+        <div class="banned-time" id="banTime"></div>
+        <div class="divider-line"></div>
+        <div class="banned-contact">
+            <p>Contact Owner for Unban:</p>
+            <div class="contact-buttons">
+                <a href="https://t.me/kfcaja2" target="_blank">Telegram</a>
+                <a href="https://wa.me/6288970390752" target="_blank">WhatsApp</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Broadcast popup -->
+<div class="broadcast-overlay hidden" id="broadcastOverlay"></div>
+<div class="broadcast-popup hidden" id="broadcastPopup">
+    <div class="popup-header">
+        <span>Announcement</span>
+        <button class="popup-close" onclick="closeBroadcast()">X</button>
+    </div>
+    <div class="popup-body" id="broadcastMessage"></div>
+    <div class="popup-time" id="broadcastTime"></div>
+</div>
+
+<div class="login-container">
+    <div class="login-card">
+        <div class="login-header">
+            <div class="logo"><div class="logo-square">AM</div></div>
+            <h2>AM Generator</h2>
+            <p>Alight Motion • Magic Link Tools</p>
+            <span class="version-badge">V3.0 • Premium</span>
+        </div>
+
+        <!-- Login Form -->
+        <div id="loginForm" class="form-container">
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" id="loginUsername" placeholder="Enter your username">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="loginPassword" placeholder="Enter your password">
+            </div>
+            <button class="btn btn-primary" onclick="login()">Login</button>
+            <p class="form-link">Don't have an account? <a onclick="showRegister()">Register Now</a></p>
+        </div>
+
+        <!-- Register Form -->
+        <div id="registerForm" class="form-container hidden">
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" id="registerUsername" placeholder="Choose a username">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="registerPassword" placeholder="Choose a password">
+            </div>
+            <button class="btn btn-primary" onclick="register()">Register</button>
+            <p class="form-link">Already have an account? <a onclick="showLogin()">Login</a></p>
+        </div>
+
+        <!-- Main App -->
+        <div id="mainApp" class="form-container hidden">
+            <div class="user-profile">
+                <div class="profile-left">
+                    <div class="avatar" id="userAvatar">K</div>
+                    <div>
+                        <div class="username" id="displayUsername">-</div>
+                        <span class="role-badge" id="displayRole">user</span>
+                    </div>
+                </div>
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </div>
+
+            <div class="limit-grid">
+                <div class="limit-card">
+                    <div class="limit-label">Server 1</div>
+                    <div class="limit-value"><span id="limitS1Used">0</span> <span class="total">/ <span id="limitS1Total">0</span></span></div>
+                    <div class="limit-status" id="statusS1">Available</div>
+                </div>
+                <div class="limit-card">
+                    <div class="limit-label">Server 2</div>
+                    <div class="limit-value"><span id="limitS2Used">0</span> <span class="total">/ <span id="limitS2Total">0</span></span></div>
+                    <div class="limit-status" id="statusS2">Available</div>
+                </div>
+            </div>
+
+            <div class="redeem-section">
+                <h4>Redeem Kode</h4>
+                <div class="redeem-row">
+                    <input type="text" id="redeemInput" placeholder="Masukkan kode redeem">
+                    <button class="btn btn-cyan btn-sm" onclick="redeemCode()">Redeem</button>
+                </div>
+            </div>
+
+            <div class="buy-limit" id="buyLimit">
+                <h4>Limit Exhausted or Server Offline?</h4>
+                <p>Contact us for limit purchase or API AM Generator</p>
+                <div class="buy-contacts">
+                    <a href="https://t.me/kfcaja2" target="_blank">Telegram</a>
+                    <a href="https://wa.me/6288970390752" target="_blank">WhatsApp</a>
+                </div>
+            </div>
+
+            <div class="server-grid">
+                <div class="server-card active" data-server="server1" onclick="selectServer('server1')">
+                    <span class="server-name">Server 1</span>
+                    <span class="server-badge">Active</span>
+                    <div class="server-status"><span class="status-dot" id="dotServer1"></span><span id="statusTextServer1">Online</span></div>
+                </div>
+                <div class="server-card" data-server="server2" onclick="selectServer('server2')">
+                    <span class="server-name">Server 2</span>
+                    <span class="server-badge">Beta</span>
+                    <div class="server-status"><span class="status-dot" id="dotServer2"></span><span id="statusTextServer2">Online</span></div>
+                </div>
+            </div>
+
+            <div class="alert hidden" id="alert">
+                <span class="alert-icon" id="alertIcon">i</span>
+                <div>
+                    <div class="alert-title" id="alertTitle">Info</div>
+                    <div class="alert-message" id="alertMessage"></div>
+                    <div class="alert-detail" id="alertDetail"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Email Target</label>
+                <input type="email" id="targetEmail" placeholder="Enter target email">
+            </div>
+
+            <div class="form-group hidden" id="linkGroup">
+                <label>Magic Link</label>
+                <input type="text" id="magicLink" placeholder="Paste magic link here">
+            </div>
+
+            <button class="btn btn-primary" id="actionBtn" onclick="sendMagicLink()">Send Magic Link</button>
+            <button class="btn btn-success hidden" id="verifyBtn" onclick="verifyMagicLink()">Verify Link</button>
+
+            <!-- Owner Panel -->
+            <div id="ownerPanel" class="owner-panel hidden">
+                <div class="panel-header">
+                    <h3>Owner Panel</h3>
+                    <span class="admin-badge">ADMIN</span>
+                    <button class="btn-refresh" onclick="loadUserList()">Refresh</button>
+                </div>
+
+                <div class="server-toggle-group">
+                    <button class="toggle-btn active" id="toggleServer1" onclick="toggleServer('server1')">Server 1: <span id="toggleStatus1">ON</span></button>
+                    <button class="toggle-btn active" id="toggleServer2" onclick="toggleServer('server2')">Server 2: <span id="toggleStatus2">ON</span></button>
+                </div>
+
+                <div class="broadcast-section">
+                    <textarea id="broadcastInput" placeholder="Write broadcast message for all users..."></textarea>
+                    <button class="btn btn-cyan btn-sm" onclick="sendBroadcast()">Send Broadcast</button>
+                </div>
+
+                <div class="redeem-create-section">
+                    <h4>Buat Kode Redeem</h4>
+                    <div class="form-group">
+                        <label>Jumlah Limit</label>
+                        <input type="number" id="redeemAmount" min="1" placeholder="Contoh: 10">
+                    </div>
+                    <button class="btn btn-cyan btn-sm" onclick="createRedeemCode()">Buat Kode</button>
+                    <div class="redeem-list" id="redeemCodeList"><p class="empty-text">Belum ada kode aktif</p></div>
+                </div>
+
+                <div class="banned-section">
+                    <h4>Banned Users</h4>
+                    <div id="bannedItems"><p class="empty-text">No banned users</p></div>
+                </div>
+
+                <div class="user-section">
+                    <h4>Users</h4>
+                    <div class="user-list" id="userList"><p class="empty-text">Loading...</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// ============ BASE URL ============
+const API_BASE = window.location.origin;
+
+// ============ SESSION MANAGEMENT ============
+function getSession(){ return JSON.parse(localStorage.getItem('xkelzz_session') || 'null'); }
+function saveSession(s){ localStorage.setItem('xkelzz_session', JSON.stringify(s)); }
+function clearSession(){ localStorage.removeItem('xkelzz_session'); }
+
+let activeServer = 'server1';
+
+// ============ TOAST ============
+function showToast(message, type){
+    type = type || 'info';
+    const container = document.getElementById('toastContainer');
+    const el = document.createElement('div');
+    el.className = 'toast toast-' + type;
+    el.textContent = message;
+    container.appendChild(el);
+    setTimeout(() => {
+        el.classList.add('fade-out');
+        setTimeout(() => el.remove(), 200);
+    }, 3000);
+}
+
+// ============ UI ============
+function showLogin(){
+    document.getElementById('loginForm').classList.remove('hidden');
+    document.getElementById('registerForm').classList.add('hidden');
+    document.getElementById('mainApp').classList.add('hidden');
+}
+function showRegister(){
+    document.getElementById('loginForm').classList.add('hidden');
+    document.getElementById('registerForm').classList.remove('hidden');
+    document.getElementById('mainApp').classList.add('hidden');
+}
+
+function selectServer(name){
+    activeServer = name;
+    document.querySelectorAll('.server-card').forEach(card => {
+        card.classList.toggle('active', card.dataset.server === name);
+    });
+}
+
+function showAlert(type, title, message, detail){
+    const alertBox = document.getElementById('alert');
+    alertBox.classList.remove('hidden', 'alert-success', 'alert-error');
+    alertBox.classList.add('alert-' + type);
+    document.getElementById('alertIcon').textContent = type === 'success' ? '✓' : (type === 'error' ? '!' : 'i');
+    document.getElementById('alertTitle').textContent = title;
+    document.getElementById('alertMessage').textContent = message;
+    document.getElementById('alertDetail').textContent = detail || '';
+}
+
+// ============ AUTH API ============
+async function register(){
+    const username = document.getElementById('registerUsername').value.trim();
+    const password = document.getElementById('registerPassword').value;
+
+    if(username.length < 3){ showToast('Username minimal 3 karakter', 'error'); return; }
+    if(password.length < 3){ showToast('Password minimal 3 karakter', 'error'); return; }
+
+    try {
+        const res = await fetch(API_BASE + '/api/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password })
+        });
+        const data = await res.json();
+
+        if(data.banned){
+            document.getElementById('banReason').textContent = data.reason || 'You have been banned';
+            document.getElementById('banTime').textContent = 'Banned until: ' + new Date(data.until).toLocaleString('id-ID');
+            document.getElementById('bannedOverlay').classList.remove('hidden');
+            return;
+        }
+
+        if(data.success){
+            showToast('✅ Registrasi berhasil! Silakan login.', 'success');
+            showLogin();
+            document.getElementById('loginUsername').value = username;
+        } else {
+            showToast(data.message || 'Registrasi gagal', 'error');
+        }
+    } catch(error) {
+        showToast('❌ Error: ' + error.message, 'error');
+    }
+}
+
+async function login(){
+    const username = document.getElementById('loginUsername').value.trim();
+    const password = document.getElementById('loginPassword').value;
+
+    if(!username || !password){ showToast('Isi username dan password', 'error'); return; }
+
+    try {
+        const res = await fetch(API_BASE + '/api/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password })
+        });
+        const data = await res.json();
+
+        if(data.banned){
+            document.getElementById('banReason').textContent = data.reason || 'You have been banned';
+            document.getElementById('banTime').textContent = 'Banned until: ' + new Date(data.until).toLocaleString('id-ID');
+            document.getElementById('bannedOverlay').classList.remove('hidden');
+            return;
+        }
+
+        if(data.success){
+            saveSession({ username: username.toLowerCase(), role: data.role });
+            showToast('✅ Login berhasil!', 'success');
+            enterApp();
+        } else {
+            showToast(data.message || 'Login gagal', 'error');
+        }
+    } catch(error) {
+        showToast('❌ Error: ' + error.message, 'error');
+    }
+}
+
+async function logout(){
+    try {
+        await fetch(API_BASE + '/api/logout', { method: 'POST' });
+        clearSession();
+        showLogin();
+        showToast('👋 Logout berhasil', 'info');
+    } catch(error) {
+        showToast('❌ Error', 'error');
+    }
+}
+
+// ============ ENTER APP ============
+async function enterApp(){
+    const session = getSession();
+    if(!session) return showLogin();
+
+    document.getElementById('loginForm').classList.add('hidden');
+    document.getElementById('registerForm').classList.add('hidden');
+    document.getElementById('mainApp').classList.remove('hidden');
+
+    document.getElementById('userAvatar').textContent = session.username.charAt(0).toUpperCase();
+    document.getElementById('displayUsername').textContent = session.username;
+    document.getElementById('displayRole').textContent = session.role;
+
+    document.getElementById('ownerPanel').classList.toggle('hidden', session.role !== 'owner');
+    if(session.role === 'owner'){ loadUserList(); loadRedeemCodes(); }
+
+    await loadUserData();
+    await loadServerStatus();
+    selectServer(activeServer);
+    maybeShowBroadcast();
+}
+
+// ============ LOAD USER DATA ============
+async function loadUserData(){
+    try {
+        const res = await fetch(API_BASE + '/api/user');
+        const data = await res.json();
+        if(data.success){
+            const user = data.user;
+            document.getElementById('limitS1Used').textContent = user.used?.server1 || 0;
+            document.getElementById('limitS1Total').textContent = user.limits?.server1 || 0;
+            document.getElementById('limitS2Used').textContent = user.used?.server2 || 0;
+            document.getElementById('limitS2Total').textContent = user.limits?.server2 || 0;
+        }
+    } catch(error) {
+        console.error('Load user error:', error);
+    }
+}
+
+// ============ LOAD SERVER STATUS ============
+async function loadServerStatus(){
+    try {
+        const res = await fetch(API_BASE + '/api/owner/users');
+        const data = await res.json();
+        if(data.success && data.serverStatus){
+            updateServerUI('server1', data.serverStatus.server1);
+            updateServerUI('server2', data.serverStatus.server2);
+        }
+    } catch(error) {
+        console.error('Load server status error:', error);
+    }
+}
+
+function updateServerUI(server, status){
+    const num = server === 'server1' ? 1 : 2;
+    const dot = document.getElementById('dotServer' + num);
+    const text = document.getElementById('statusTextServer' + num);
+    const statusEl = document.getElementById('statusS' + num);
+    
+    if(dot) dot.className = 'status-dot ' + (status ? '' : 'offline');
+    if(text) text.textContent = status ? 'Online' : 'Offline';
+    if(statusEl){
+        statusEl.textContent = status ? 'Available' : 'Offline';
+        statusEl.className = 'limit-status' + (status ? '' : ' offline');
+    }
+}
+
+// ============ MAGIC LINK ============
+async function sendMagicLink(){
+    const session = getSession();
+    if(!session) return;
+    const email = document.getElementById('targetEmail').value.trim();
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if(!re.test(email)){ showToast('Masukkan email yang valid', 'error'); return; }
+
+    const btn = document.getElementById('actionBtn');
+    btn.disabled = true;
+    btn.textContent = 'Mengirim...';
+
+    try {
+        const res = await fetch(API_BASE + '/api/send', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ server: activeServer, email })
+        });
+        const data = await res.json();
+
+        if(data.success){
+            document.getElementById('linkGroup').classList.remove('hidden');
+            document.getElementById('verifyBtn').classList.remove('hidden');
+            btn.classList.add('hidden');
+            showAlert('success', 'Magic Link Terkirim', 'Cek inbox atau spam folder.', 'Target: ' + email);
+            showToast('✅ Magic link berhasil dikirim', 'success');
+            loadUserData();
+        } else {
+            showAlert('error', 'Gagal', data.message || 'Terjadi kesalahan');
+            showToast('❌ ' + data.message, 'error');
+            if(data.limitReached){
+                document.getElementById('buyLimit').style.display = 'block';
+            }
+        }
+    } catch(error) {
+        showToast('❌ Error: ' + error.message, 'error');
+    }
+    btn.disabled = false;
+    btn.textContent = 'Send Magic Link';
+}
+
+async function verifyMagicLink(){
+    const link = document.getElementById('magicLink').value.trim();
+    if(!link){ showToast('Tempelkan magic link', 'error'); return; }
+
+    try {
+        const res = await fetch(API_BASE + '/api/verify', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ url: link })
+        });
+        const data = await res.json();
+
+        if(data.success){
+            showAlert('success', '🎉 Verifikasi Berhasil!', 'Akun Alight Motion Premium Aktif!', 'Selamat menikmati fitur premium.');
+            showToast('✅ Verifikasi berhasil!', 'success');
+            document.getElementById('linkGroup').classList.add('hidden');
+            document.getElementById('verifyBtn').classList.add('hidden');
+            document.getElementById('actionBtn').classList.remove('hidden');
+            document.getElementById('magicLink').value = '';
+            document.getElementById('targetEmail').value = '';
+        } else {
+            showAlert('error', 'Verifikasi Gagal', data.message || 'Link tidak valid atau expired');
+            showToast('❌ Verifikasi gagal', 'error');
+        }
+    } catch(error) {
+        showToast('❌ Error: ' + error.message, 'error');
+    }
+}
+
+// ============ REDEEM ============
+async function redeemCode(){
+    const session = getSession();
+    if(!session) return;
+    const code = document.getElementById('redeemInput').value.trim().toUpperCase();
+    if(!code){ showToast('Masukkan kode redeem', 'error'); return; }
+
+    try {
+        const res = await fetch(API_BASE + '/api/redeem', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ code, server: activeServer })
+        });
+        const data = await res.json();
+
+        if(data.success){
+            showToast('✅ ' + data.message, 'success');
+            document.getElementById('redeemInput').value = '';
+            loadUserData();
+            if(getSession().role === 'owner') loadRedeemCodes();
+        } else {
+            showToast('❌ ' + data.message, 'error');
+        }
+    } catch(error) {
+        showToast('❌ Error: ' + error.message, 'error');
+    }
+}
+
+// ============ OWNER FUNCTIONS ============
+async function loadUserList(){
+    const session = getSession();
+    if(!session || session.role !== 'owner') return;
+
+    try {
+        const res = await fetch(API_BASE + '/api/owner/users');
+        const data = await res.json();
+        if(!data.success) return;
+
+        const container = document.getElementById('userList');
+        container.innerHTML = '';
+        data.users.forEach(user => {
+            if(user.role === 'owner') return;
+            const row = document.createElement('div');
+            row.className = 'list-row';
+            row.innerHTML = `
+                <span>${user.username} <em style="color:#666;">(${user.role})</em></span>
+                <span class="row-actions">
+                    <button class="unban" onclick="toggleBan('${user.username}')">${data.bannedIPs?.some(b => b.ip === user.username) ? 'Unban' : 'Ban'}</button>
+                </span>
+            `;
+            container.appendChild(row);
+        });
+
+        // Update banned list
+        const bannedContainer = document.getElementById('bannedItems');
+        bannedContainer.innerHTML = '';
+        if(data.bannedIPs && data.bannedIPs.length > 0){
+            data.bannedIPs.forEach(b => {
+                const row = document.createElement('div');
+                row.className = 'list-row';
+                row.innerHTML = `
+                    <span>${b.ip}</span>
+                    <span class="row-actions">
+                        <button class="unban" onclick="unbanIP('${b.ip}')">Unban</button>
+                    </span>
+                `;
+                bannedContainer.appendChild(row);
+            });
+        } else {
+            bannedContainer.innerHTML = '<p class="empty-text">No banned users</p>';
+        }
+    } catch(error) {
+        console.error('Load user list error:', error);
+    }
+}
+
+async function toggleBan(username){
+    try {
+        const res = await fetch(API_BASE + '/api/owner/unban-ip', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ ip: username })
+        });
+        const data = await res.json();
+        if(data.success){
+            showToast('✅ ' + data.message, 'success');
+            loadUserList();
+        }
+    } catch(error) {
+        showToast('❌ Error', 'error');
+    }
+}
+
+async function unbanIP(ip){
+    try {
+        const res = await fetch(API_BASE + '/api/owner/unban-ip', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ ip })
+        });
+        const data = await res.json();
+        if(data.success){
+            showToast('✅ ' + data.message, 'success');
+            loadUserList();
+        }
+    } catch(error) {
+        showToast('❌ Error', 'error');
+    }
+}
+
+async function toggleServer(key){
+    const session = getSession();
+    if(!session || session.role !== 'owner') return;
+
+    try {
+        const res = await fetch(API_BASE + '/api/owner/toggle-server', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ server: key })
+        });
+        const data = await res.json();
+        if(data.success){
+            showToast('✅ ' + data.message, 'success');
+            updateServerUI(key, data.status);
+            const btn = document.getElementById('toggle' + key.charAt(0).toUpperCase() + key.slice(1));
+            if(btn){
+                btn.className = 'toggle-btn ' + (data.status ? 'active' : 'off');
+                document.getElementById('toggleStatus' + (key === 'server1' ? '1' : '2')).textContent = data.status ? 'ON' : 'OFF';
+            }
+        }
+    } catch(error) {
+        showToast('❌ Error', 'error');
+    }
+}
+
+async function sendBroadcast(){
+    const session = getSession();
+    if(!session || session.role !== 'owner') return;
+    const message = document.getElementById('broadcastInput').value.trim();
+    if(!message){ showToast('Tulis pesan', 'error'); return; }
+
+    try {
+        const res = await fetch(API_BASE + '/api/owner/broadcast', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message })
+        });
+        const data = await res.json();
+        if(data.success){
+            showToast('✅ ' + data.message, 'success');
+            document.getElementById('broadcastInput').value = '';
+            displayBroadcast({ message, time: new Date().toLocaleString('id-ID') });
+        }
+    } catch(error) {
+        showToast('❌ Error', 'error');
+    }
+}
+
+// ============ REDEEM CODES (OWNER) ============
+async function createRedeemCode(){
+    const session = getSession();
+    if(!session || session.role !== 'owner') return;
+    const amount = parseInt(document.getElementById('redeemAmount').value);
+    if(!amount || amount <= 0){ showToast('Masukkan jumlah valid', 'error'); return; }
+
+    try {
+        const res = await fetch(API_BASE + '/api/owner/create-redeem', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ amount })
+        });
+        const data = await res.json();
+        if(data.success){
+            showToast('✅ Kode: ' + data.code, 'success');
+            document.getElementById('redeemAmount').value = '';
+            loadRedeemCodes();
+        }
+    } catch(error) {
+        showToast('❌ Error', 'error');
+    }
+}
+
+async function loadRedeemCodes(){
+    const session = getSession();
+    if(!session || session.role !== 'owner') return;
+
+    try {
+        const res = await fetch(API_BASE + '/api/owner/redeem-codes');
+        const data = await res.json();
+        if(data.success){
+            const container = document.getElementById('redeemCodeList');
+            container.innerHTML = '';
+            data.codes.forEach(code => {
+                if(!code.used){
+                    const row = document.createElement('div');
+                    row.className = 'redeem-code-row';
+                    row.innerHTML = `
+                        <span class="code-text">${code.code}</span>
+                        <span class="code-amount">+${code.limit} limit</span>
+                    `;
+                    container.appendChild(row);
+                }
+            });
+            if(data.codes.filter(c => !c.used).length === 0){
+                container.innerHTML = '<p class="empty-text">Belum ada kode aktif</p>';
+            }
+        }
+    } catch(error) {
+        console.error('Load redeem codes error:', error);
+    }
+}
+
+// ============ BROADCAST ============
+function displayBroadcast(data){
+    document.getElementById('broadcastMessage').textContent = data.message;
+    document.getElementById('broadcastTime').textContent = data.time;
+    document.getElementById('broadcastOverlay').classList.remove('hidden');
+    document.getElementById('broadcastPopup').classList.remove('hidden');
+}
+
+function closeBroadcast(){
+    document.getElementById('broadcastOverlay').classList.add('hidden');
+    document.getElementById('broadcastPopup').classList.add('hidden');
+    const data = JSON.parse(localStorage.getItem('xkelzz_broadcast') || 'null');
+    if(data) sessionStorage.setItem('xkelzz_broadcast_seen', data.time);
+}
+
+function maybeShowBroadcast(){
+    const data = JSON.parse(localStorage.getItem('xkelzz_broadcast') || 'null');
+    if(!data) return;
+    const seen = sessionStorage.getItem('xkelzz_broadcast_seen');
+    if(seen === data.time) return;
+    displayBroadcast(data);
+}
+
+// ============ CHECK SESSION ============
+async function checkSession(){
+    try {
+        const res = await fetch(API_BASE + '/api/user');
+        const data = await res.json();
+        if(data.success){
+            saveSession({ username: data.user.username, role: data.user.role });
+            enterApp();
+        } else {
+            clearSession();
+            showLogin();
+        }
+    } catch(error) {
+        console.log('Not logged in');
+        showLogin();
+    }
+}
+
+// ============ INIT ============
+document.addEventListener('DOMContentLoaded', () => {
+    checkSession();
+    // Listen for broadcast updates
+    const bc = new BroadcastChannel('xkelzz_broadcast');
+    bc.onmessage = (e) => {
+        if(e.data.type === 'broadcast'){
+            displayBroadcast({ message: e.data.message, time: new Date().toLocaleString('id-ID') });
+        }
+    };
+});
+</script>
+</body>
+</html>
